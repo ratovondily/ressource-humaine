@@ -1,0 +1,72 @@
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export des Employés</title>
+    <!-- Inclure les fichiers CSS Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Liste des Employés Exportés</h1>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            
+                            <th class="text-center">Nom</th>
+                            <th class="text-center">Prénom</th>
+                            <th class="text-center">Sexe</th>
+                            <th class="text-center">IM</th>
+                            <th class="text-center">Date de Naissance</th>
+                            <th class="text-center">Poste d'affectation</th>
+                            <th class="text-center">Diplôme</th>
+                            <th class="text-center">Catégorie</th>
+                            <th class="text-center">Indice</th>
+                            <th class="text-center">Fonction</th>
+                            <th class="text-center">Date de Prise de Service</th>
+                            <th class="text-center">Statut</th>
+                            <th class="text-center">Durée de Contrat</th>
+                            <th class="text-center">CIN</th>
+                            <th class="text-center">Adresse Exacte</th>
+                            <th class="text-center">Numéro de Téléphone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employe in employes %}
+                        <tr>
+                            
+                            <td>{{ employe.nom_em }}</td>
+                            <td>{{ employe.prenom_em }}</td>
+                            <td>{{ employe.get_sex_display }}</td>
+                            <td>{{ employe.im }}</td>
+                            <td>{{ employe.date_nais }}</td>
+                            <td>{{ employe.departement.nom_dep }}</td>
+                            <td>{{ employe.diplome.type_dip }}</td>
+                            <td>{{ employe.categorie.num_cat }}</td>
+                            <td>{{ employe.indice }}</td>
+                            <td>{{ employe.fonction.nom_fc }}</td>
+                            <td>{{ employe.date_PF }}</td>
+                            <td>{{ employe.contrat.type_con }}</td>
+                            <td>{{ employe.contrat.dure_con }}</td>
+                            <td>{{ employe.cin }}</td>
+                            <td>{{ employe.adress_em }}</td>
+                            <td>{{ employe.num_tel }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclure les fichiers JavaScript Bootstrap (jQuery et Popper.js requis) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.11.6/dist/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    {% endblock content %}
+
+

@@ -1,0 +1,416 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Modifier Employé {% endblock title %}
+
+{% block content %}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Search form -->
+      <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main" method="get" action="#">
+        {% csrf_token %}
+        <div class="form-group mb-0">
+            <div class="input-group input-group-alternative input-group-merge">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" name="search_query" placeholder="Search" type="text">
+            </div>
+        </div>
+        <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </form>
+    
+      <!-- Navbar links -->
+      <ul class="navbar-nav align-items-center  ml-md-auto ">
+        <li class="nav-item d-xl-none">
+          <!-- Sidenav toggler -->
+          <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item d-sm-none">
+          <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+            <i class="ni ni-zoom-split-in"></i>
+          </a>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="ni ni-ungroup"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+            <div class="row shortcuts px-4">
+              <a href="#!" class="col-4 shortcut-item">
+                <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                  <i class="ni ni-calendar-grid-58"></i>
+                </span>
+                <small>Calendar</small>
+              </a>
+              <a href="#!" class="col-4 shortcut-item">
+                <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                  <i class="ni ni-email-83"></i>
+                </span>
+                <small>Email</small>
+              </a>
+              <a href="#!" class="col-4 shortcut-item">
+                <span class="shortcut-media avatar rounded-circle bg-gradient-info">
+                  <i class="ni ni-credit-card"></i>
+                </span>
+                <small>Payments</small>
+              </a>
+              <a href="#!" class="col-4 shortcut-item">
+                <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                  <i class="ni ni-books"></i>
+                </span>
+                <small>Reports</small>
+              </a>
+              <a href="#!" class="col-4 shortcut-item">
+                <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                  <i class="ni ni-pin-3"></i>
+                </span>
+                <small>Maps</small>
+              </a>
+              <a href="#!" class="col-4 shortcut-item">
+                <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                  <i class="ni ni-basket"></i>
+                </span>
+                <small>Shop</small>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+        <li class="nav-item dropdown">
+          <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="media align-items-center">
+              
+              <div class="media-body  ml-2  d-none d-lg-block">
+                <span class="mb-0 text-sm ">
+                 
+                  {{ request.user.username|upper }}
+                
+                </span>
+              </div>
+            </div>
+          </a>
+          <div class="dropdown-menu  dropdown-menu-right ">
+           
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'logout' %}" class="dropdown-item">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">P . A . T</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item">Employer</li>
+                            <li class="breadcrumb-item active" aria-current="page">Modifier</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="responsive text-center"> 
+                <h2 class="h2 text-white d-inline-block mb-0">MODIFIER UN EMPLOYÉ</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Modifier les informations de l'employé</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data" action="{% url 'modifier_employe' employe.id %}" method="POST" class="form-group">
+                        {% csrf_token %}
+                        <div class="pl-lg-4">
+                            <div class="row">
+                              <div class="col-lg-3">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="nom_em">Nom</label>
+                                  <input type="text" id="nom_em" name="nom_em" class="form-control" placeholder="nom" value="{{employe.nom_em}}">
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="Prenom_em">Prenom</label>
+                                  <input type="text" id="prenom_em" name="prenom_em" class="form-control" placeholder="Prenom" value="{{employe.prenom_em}}">
+                                </div>
+                              </div>
+                              <div class="col-lg-2">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="age">Âge</label>
+                                  <input type="number" id="age" name="age" class="form-control" placeholder="Âge" value="{{employe.age}}">
+                                </div>
+                              </div>                
+                              <div class="col-lg-2">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="sex">Sexe</label>
+                                  <select id="sex" name="sex" class="form-control" value="{{employe.sex}}">
+                                    <option value="M">Masculin</option>
+                                    <option value="F">Féminin</option>
+                                  </select>
+                                </div>
+                              </div>
+                          </div>
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="adresse">Adresse</label>
+                                  <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Adresse" value="{{employe.adresse}}">
+                                </div>
+                              </div>
+                              <div class="col-lg-2">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="cin">CIN</label>
+                                  <input type="text" id="cin" name="cin" class="form-control" name="cin" placeholder="CIN" value="{{employe.cin}}">
+                                </div>
+                              </div>
+                              <div class="col-lg-2">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="date_nais">Date de Naissance</label>
+                                  <input type="date" id="date_nais" class="form-control" name="date_nais" placeholder="Date de Naissance" value="{{ employe.date_nais|date:'Y-m-d' }}">
+                                </div>
+                              </div>
+                              <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="num_tel">Numéro de téléphone</label>
+                                    <input type="number" id="num_tel" class="form-control" name="num_tel" placeholder="Numéro de téléphone" value="{{employe.num_tel}}">
+                                </div>
+                            </div>
+                            
+                            </div>
+                          </div>
+                        <hr class="my-4" />
+
+                        <!-- Informations professionnelles -->
+                        <h6 class="heading-small text-muted mb-4">Informations professionnelles</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="im">IM</label>
+                                    <input type="number" id="im" class="form-control" name="im" placeholder="IM" value="{{employe.im}}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                  <label class="form-control-label" for="indice">Indice</label>
+                                  <input type="number" id="indice" class="form-control" name="indice" placeholder="Indice" value="{{employe.indice}}">
+                              </div>
+                          </div>
+                          <div class="col-lg-2">
+                            <div class="form-group">
+                                <label class="form-control-label" for="categorie">Catégorie</label>
+                                <select id="categorie" class="form-control" name="categorie" >
+                                  <option value="" disabled selected>Categorie</option>
+                                  {% if employe.categorie %}  {# Vérifiez si l'employé a un contrat #}
+                                  <option value="{{ employe.categorie.id }}" selected>
+                                      {{ employe.categorie.num_cat_to_roman }}
+                                  </option>
+                              {% endif %}
+                                    {% for categorie in categories %}
+                                        <option value="{{ categorie.id }}">{{ categorie.num_cat_to_roman }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                              <label class="form-control-label" for="diplome">Diplôme</label>
+                              <select id="diplome" name="diplome" class="form-control" required>
+                                <option value="" disabled selected>Diplome</option>
+                                {% if employe.diplome %}  {# Vérifiez si l'employé a un contrat #}
+                                <option value="{{ employe.diplome.id }}" selected>
+                                    {{ employe.diplome.type_dip }} 
+                                </option>
+                            {% endif %}
+                                  {% for diplome in diplomes %}
+                                      <option value="{{ diplome.id }}">{{ diplome.type_dip }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-control-label" for="contrat">Contrat</label>
+                        <select id="contrat" name="contrat" class="form-control" required>
+                            <option value="" disabled>Contrat</option>
+                            {% if employe.contrat %}  {# Vérifiez si l'employé a un contrat #}
+                                <option value="{{ employe.contrat.id }}" selected>
+                                    {{ employe.contrat.type_con }} {{ employe.contrat.dure_con }} Mois
+                                </option>
+                            {% endif %}
+                            {% for contrat in contrats %}
+                                <option value="{{ contrat.id }}">
+                                    {{ contrat.type_con }} {{ contrat.dure_con }} Mois
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    
+                    
+                       <div class="col-lg-2">
+                          <div class="form-group">
+                              <label class="form-control-label" for="situation">Situation</label>
+                              <select id="situation" name="situation" class="form-control" required>
+                                <option value="" disabled selected>Situation</option>
+                                {% if employe.situation %}  {# Vérifiez si l'employé a un contrat #}
+                                <option value="{{ employe.situation.id }}" selected>
+                                    {{ employe.situation.type_st }} 
+                                </option>
+                            {% endif %}
+                                  {% for situation in situations %}
+                                      <option value="{{ situation.id }}">{{ situation.type_st }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+               <div class="col-lg-2">
+                          <div class="form-group">
+                              <label class="form-control-label" for="domaine">Domaine</label>
+                              <select id="domaine" name="domaine" class="form-control" required>
+                                <option value="" disabled selected>domaine</option>
+                                 {% if employe.domaine %}  {# Vérifiez si l'employé a un contrat #}
+                                <option value="{{ employe.domaine.id }}" selected>
+                                    {{ employe.domaine.nom_dom }} 
+                                </option>
+                            {% endif %}
+                                  {% for domaine in domaines %}
+                                      <option value="{{ domaine.id }}">{{ domaine.nom_dom }}  ({{ domaine.description}})</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                
+               <div class="col-lg-2">
+                          <div class="form-group">
+                              <label class="form-control-label" for="departement">Departement</label>
+                              <select id="departement" name="departement" class="form-control" required>
+                                <option value="" disabled selected>Departement</option>
+                                {% if employe.departement %}  {# Vérifiez si l'employé a un contrat #}
+                                <option value="{{ employe.departement.id }}" selected>
+                                    {{ employe.departement.nom_dep }} 
+                                </option>
+                            {% endif %}
+                                  {% for departement in departements %}
+                                      <option value="{{ departement.id }}">{{ departement.nom_dep }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                            <label class="form-control-label" for="date_PF">Date d'entrée</label>
+                            <input type="date" id="date_PF" class="form-control" name="date_PF" value="{{ employe.date_PF|date:'Y-m-d' }}">
+                        </div>
+                    </div>
+                    
+              
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-control-label" for="grade">Grade</label>
+                  <select id="grade" class="form-control" name="grade" >
+                    <option value="" disabled selected>Grade</option>
+                    {% if employe.grade %}  {# Vérifiez si l'employé a un contrat #}
+                    <option value="{{ employe.grade.id }}" selected>
+                        {{ employe.grade.num_classe }}C{{ employe.grade.num_echellon }}E 
+                    </option>
+                {% endif %}
+                    {% for grade in grades %}
+                      <option value="{{ grade.id }}">
+                        {{ grade.num_classe }}C{{ grade.num_echellon }}E
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              
+             
+                      <div class="col-lg-2">
+                      <div class="form-group">
+                        <label class="form-control-label" for="fonction">fonction</label>
+                        <select id="fonction" name="fonction" class="form-control" required>
+                            <option value="" disabled>fonction</option>
+                            {% if employe.fonction %}  {# Vérifiez si l'employé a un contrat #}
+                                <option value="{{ employe.fonction.id }}" selected>
+                                    {{ employe.fonction.nom_fc }} 
+                                </option>
+                            {% endif %}
+                            {% for fonction in fonctions %}
+                                <option value="{{ fonction.id }}">
+                                    {{ fonction.nom_fc }} 
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                  </div>
+              
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      {% if employe.image %}
+                      <div>
+                          <label class="form-control-label">Image actuelle</label>
+                          <img src="{{ employe.image.url }}" alt="Image actuelle de l'employé" alt="{{ employe.nom_em }}" class="avatar avatar-sm rounded-circle">
+                      </div>
+                  {% else %}
+                      <p>Aucune image disponible pour cet employé</p>
+                  {% endif %}
+                        <label class="form-control-label" for="image">Image</label>
+                        <input type="file" id="image" class="form-control-file" name="image">
+                    </div> 
+                </div>
+                
+                
+                        <!-- Bouton de soumission -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+ 
+  <script>
+   {% for msg in messages %}
+   swal("{{ msg }}");
+   {% endfor %}
+  </script>
+  
+
+
+{% include "includes/footer.html" %}
+
+
+{% endblock content %}

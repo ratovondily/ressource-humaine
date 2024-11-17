@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Importer des données {% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>Importer des données</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="excel_file">Sélectionnez un fichier Excel (.xlsx)</label>
+                <input type="file" name="excel_file" id="excel_file">
+            </div>
+            <button type="submit" class="btn btn-primary">Importer</button>
+        </form>
+    </div>
+{% endblock content %}

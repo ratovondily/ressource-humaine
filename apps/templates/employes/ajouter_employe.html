@@ -1,0 +1,365 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        
+        <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Search form -->
+              <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main" method="get" action="#">
+                {% csrf_token %}
+                <div class="form-group mb-0">
+                    <div class="input-group input-group-alternative input-group-merge">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input class="form-control" name="search_query" placeholder="Search" type="text">
+                    </div>
+                </div>
+                <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </form>
+            
+              <!-- Navbar links -->
+              <ul class="navbar-nav align-items-center  ml-md-auto ">
+                <li class="nav-item d-xl-none">
+                  <!-- Sidenav toggler -->
+                  <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                    <div class="sidenav-toggler-inner">
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item d-sm-none">
+                  <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                    <i class="ni ni-zoom-split-in"></i>
+                  </a>
+                </li>
+              
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ni ni-ungroup"></i>
+                  </a>
+                  
+                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+                    <div class="row shortcuts px-4">
+                      <a href="{% url 'liste_employes' %}" class="col-4 shortcut-item text-center">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                          <i class="fas fa-users"></i>
+                        </span>
+                        <small>P.A.T</small>
+                      </a>
+                      <!-- <a href="{% url 'liste_enseignants' %}" class="col-4 shortcut-item text-center">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                          <i class="ni ni-hat-3"></i>
+                        </span>
+                        <small>MESupReS</small>
+                      </a> -->
+                    
+                      <a href="{% url 'liste_conges' %}" class="col-4 shortcut-item text-center">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                          <i class="ni ni-single-copy-04"></i>
+                        </span>
+                        <small>Conge</small>
+                      </a>
+                      <a href="{% url 'list_affectations' %}" class="col-4 shortcut-item text-center">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                          <i class="ni ni-briefcase-24 "></i>
+                        </span>
+                        <small>Affectation</small>
+                      </a>
+                      
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+                <li class="nav-item dropdown">
+                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="media align-items-center">
+                      
+                      <div class="media-body  ml-2  d-none d-lg-block">
+                        <span class="mb-0 text-sm ">
+                         
+                          {{ request.user.username|upper }}
+                        
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu  dropdown-menu-right ">
+                   
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'logout' %}" class="dropdown-item">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <span>Logout</span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">P  . A  .  T</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item">Employer</li>
+                <li class="breadcrumb-item active" aria-current="page">Ajout</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+        <div class="responsive text-center"> 
+        <h2 class="h2 text-white d-inline-block mb-0">AJOUTEZ UN EMPLOYER</h2>
+      </div>
+      </div>
+    </div>
+  </div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2">
+     
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 order-xl">
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Ajoutez les informations </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form enctype="multipart/form-data" action="{% url 'ajouter_employe' %}" class="form-group" method="POST">
+            {% csrf_token %}
+           
+            <h6 class="heading-small text-muted mb-4">Information personnel</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="nom_em">Nom</label>
+                    <input type="text" id="nom_em" name="nom_em" class="form-control" placeholder="nom" required>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="Prenom_em">Prenom</label>
+                    <input type="text" id="prenom_em" name="prenom_em" class="form-control" placeholder="Prenom">
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label class="form-control-label" for="age">Âge</label>
+                    <input type="number" id="age" name="age" class="form-control" placeholder="Âge" required>
+                  </div>
+                </div>                
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="sex">Sexe</label>
+                    <select id="sex" name="sex" class="form-control" required>
+                      <option value="M">Masculin</option>
+                      <option value="F">Féminin</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="adresse">Adresse</label>
+                    <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Adresse" required>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="cin">CIN</label>
+                    <input type="text" id="cin" name="cin" class="form-control" name="cin" placeholder="CIN" required>
+                   
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="date-nais">Date de Naissance</label>
+                    <input type="date" id="date-nais" class="form-control" name="date_nais" placeholder="Date de Naissance" required>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                      <label class="form-control-label" for="num_tel">Numéro de téléphone</label>
+                      <input type="number" id="num_tel" class="form-control" name="num_tel" placeholder="Numéro de téléphone" required>
+                  </div>
+              </div>
+              
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Address -->
+            <h6 class="heading-small text-muted mb-4">information professionelle</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                      <label class="form-control-label" for="im">IM</label>
+                      <input type="number" id="im" class="form-control" name="im" placeholder="IM" required>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                    <label class="form-control-label" for="indice">Indice</label>
+                    <input type="number" id="indice" class="form-control" name="indice" placeholder="Indice" required>
+                </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-group">
+                  <label class="form-control-label" for="categorie">Catégorie</label>
+                  <select id="categorie" class="form-control" name="categorie" >
+                    <option value="" disabled selected>Categorie</option>
+                      {% for categorie in categories %}
+                          <option value="{{ categorie.id }}">{{ categorie.num_cat_to_roman }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="form-group">
+                <label class="form-control-label" for="diplome">Diplôme</label>
+                <select id="diplome" name="diplome" class="form-control" required>
+                  <option value="" disabled selected>Diplome</option>
+                    {% for diplome in diplomes %}
+                        <option value="{{ diplome.id }}">{{ diplome.type_dip }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+         <div class="col-lg-2">
+            <div class="form-group">
+                <label class="form-control-label" for="contrat">Conttrat</label>
+                <select id="contrat" name="contrat" class="form-control" required>
+                  <option value="" disabled selected>Contrat</option>
+                    {% for contrat in contrats %}
+                        <option value="{{ contrat.id }}">{{ contrat.type_con }} {{ contrat.dure_con }}_Mois</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+      
+      
+         <div class="col-lg-2">
+            <div class="form-group">
+                <label class="form-control-label" for="situation">Situation</label>
+                <select id="situation" name="situation" class="form-control" required>
+                  <option value="" disabled selected>Situation</option>
+                    {% for situation in situations %}
+                        <option value="{{ situation.id }}">{{ situation.type_st }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+ <div class="col-lg-2">
+            <div class="form-group">
+                <label class="form-control-label" for="domaine">Domaine</label>
+                <select id="domaine" name="domaine" class="form-control" required>
+                  <option value="" disabled selected>domaine</option>
+                    {% for domaine in domaines %}
+                        <option value="{{ domaine.id }}">{{ domaine.nom_dom }}  ({{ domaine.description}})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+  
+ <div class="col-lg-2">
+            <div class="form-group">
+                <label class="form-control-label" for="departement">Departement</label>
+                <select id="departement" name="departement" class="form-control" required>
+                  <option value="" disabled selected>Departement</option>
+                    {% for departement in departements %}
+                        <option value="{{ departement.id }}">{{ departement.nom_dep }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+<div class="col-lg-2">
+  <div class="form-group">
+    <label class="form-control-label" for="date-PF">Date d'entren </label>
+    <input type="date" id="date_PF" class="form-control" name="date_PF">
+  </div>
+</div>
+
+<div class="col-md-2">
+  <div class="form-group">
+    <label class="form-control-label" for="grade">Grade</label>
+    <select id="grade" class="form-control" name="grade" >
+      <option value="" disabled selected>Grade</option>
+      {% for grade in grades %}
+        <option value="{{ grade.id }}">
+          {{ grade.num_classe }}C{{ grade.num_echellon }}E
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div class="col-lg-2">
+  <div class="form-group">
+      <label class="form-control-label" for="fonction">Fonction</label>
+      <select id="fonction" name="fonction" class="form-control" required>
+        <option value="" disabled selected>Fonction</option>
+          {% for fonction in fonctions %}
+              <option value="{{ fonction.id }}">{{ fonction.nom_fc }}</option>
+          {% endfor %}
+      </select>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="form-group">
+    <label class="form-control-label" for="image">Image</label>
+    <input type="file" id="image" class="form-control-file" name="image">
+  </div>
+</div>
+  </div>
+      
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+
+   
+  </form>
+  
+  </div>
+
+
+  {% include "includes/footer.html" %}
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+<script src="/static/assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+ 
+  <script>
+   {% for msg in messages %}
+   swal("{{ msg }}");
+   {% endfor %}
+  </script>
+  
+
+
+{% endblock javascripts %}

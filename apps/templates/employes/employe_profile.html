@@ -1,0 +1,255 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+<div class="header pb-6 d-flex align-items-center" 
+style="min-height: 400px; background-image: url('{{ employe.get_image_url }}') ; background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white"> 
+          {{ employe.nom_em }} {{ employe.prenom_em }}
+        </h1>
+        
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2">
+      <div class="card card-profile">
+        {% if employe.image %}
+        <img src="{{ employe.image.url }}" alt="Image de l'employé" class="card-img-top">
+      {% else %}
+        <img src="/static/assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+      {% endif %}
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="#">
+                {% if employe.image %}
+                  <img src="{{ employe.image.url }}" class="rounded-circle">
+                {% else %}
+                  <!-- Placeholder image for when there is no image -->
+                  <img src="/static/assets/img/default-placeholder-image.jpg" class="rounded-circle">
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          
+        </div>
+        <div class="card-body pt-0">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center">
+                
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h5 class="h3">
+              {{ employe.nom_em }} {{ employe.prenom_em }}
+            </h5>
+            <div class="h5 font-weight-300">
+              {{ employe.age }} ans
+            </div>
+            <div class="h5 mt-4">
+              <i class="ni business_briefcase-24 mr-2"></i>{{ employe.fonction.nom_fc }}
+            </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>{{ employe.departement.nom_dep }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Profil de  {{ employe.nom_em }} {{ employe.prenom_em }} </h3>
+            </div>
+           
+          </div>
+        </div>
+        <div class="card-body">
+          <h6 class="heading-small text-muted mb-4">Informations  Personnelle</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="nom_em">Nom</label>
+                  <p>{{ employe.nom_em }}</p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="prenom_em">Prénom</label>
+                  <p>{{ employe.prenom_em }}</p>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="age">Age</label>
+                  <p>{{ employe.age }} ans</p>
+                </div>
+              </div>
+             
+            </div>
+            <div class="row">
+             <div class="col-lg-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="sex">Sexe</label>
+                  <p>{{ employe.get_sex_display }}</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="adresse">Adresse</label>
+                  <p>{{ employe.adresse }}</p>
+                </div>
+              </div>
+               <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="cin">CIN</label>
+                  <p>{{ employe.cin }}</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="num_tel">Numero Telephone</label>
+                  <p>{{ employe.num_tel }}</p>
+                </div>
+              </div>
+            </div>
+            <!-- Continuez à ajouter d'autres attributs de l'employé ici -->
+          </div>
+          <hr class="my-4" />
+          <!-- Adresse -->
+          <h6 class="heading-small text-muted mb-4">Informations  proffetionnelle</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="im">Numero Matricule</label>
+                  <p>{{ employe.im }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="date_PF">Date Prise de Fonction</label>
+                  <p>{{ employe.date_PF }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="indice">Indice</label>
+                  <p>{{ employe.indice }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="diplome">Diplome</label>
+                  <p>{{ employe.diplome.type_dip }}</p>
+                </div>
+              </div>
+
+
+
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="fonction">Fonction</label>
+                  <p>{{ employe.fonction.nom_fc }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="departement">Departement</label>
+                  <p>{{ employe.departement.nom_dep }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="domaine">Domaine</label>
+                  <p>{{ employe.domaine.nom_dom }}</p>
+                </div>
+              </div>
+
+               <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="situation">Situation</label>
+                  <p>{{ employe.situation.type_st }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="contrat">Contrat</label>
+                  <p>{{ employe.contrat.type_con }}</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="contrat">Dure du Contrat</label>
+                  <p>{{ employe.contrat.dure_con }} Mois</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="categorie">Categorie</label>
+                  <p>{{ employe.categorie.num_cat_to_roman }}</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group text-center">
+                  <label class="form-control-label" for="grade">Grade</label>
+                  <p>{{ employe.grade.num_classe }}C{{ employe.grade.num_echellon }}E</p>
+                </div>
+              </div>
+
+
+
+            </div>
+            <!-- Continuez à ajouter d'autres informations de contact ici -->
+          </div>
+          
+         
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- ... (le reste du contenu reste inchangé) ... -->
+    
+
+  </div>
+  
+
+  {% include "includes/footer.html" %}
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

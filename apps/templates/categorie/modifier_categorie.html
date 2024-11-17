@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Modifier une Catégorie{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <h2>Modifier une Catégorie</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+  </form>
+  <a href="{% url 'liste_categories' %}" class="btn btn-secondary">Retour à la Liste des Catégories</a>
+</div>
+{% endblock content %}

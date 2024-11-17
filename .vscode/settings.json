@@ -1,0 +1,5 @@
+{
+    "eslint.enable": false,
+    "iis.configDir": "",
+    "DockerRun.DisableDockerrc": true
+}

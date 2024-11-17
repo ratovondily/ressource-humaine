@@ -1,0 +1,10 @@
+.card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+  }
+  
+  body.dark .card {
+    background-color: #1e1e1e;
+    border-color: #2c2c2c;
+  }
+  

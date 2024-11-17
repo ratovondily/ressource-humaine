@@ -1,0 +1,245 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+            <div class="container-fluid">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Search form -->
+               
+              
+                <!-- Navbar links -->
+                <ul class="navbar-nav align-items-center  ml-md-auto ">
+                  <li class="nav-item d-xl-none">
+                    <!-- Sidenav toggler -->
+                    <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                      <div class="sidenav-toggler-inner">
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item d-sm-none">
+                    <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                      <i class="ni ni-zoom-split-in"></i>
+                    </a>
+                  </li>
+                
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="ni ni-ungroup"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+                      <div class="row shortcuts px-4">
+                        <a href="{% url 'liste_employes' %}" class="col-4 shortcut-item text-center">
+                          <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                            <i class="fas fa-users"></i>
+                          </span>
+                          <small>Employe</small>
+                        </a>
+                        <!-- <a href="{% url 'liste_enseignants' %}" class="col-4 shortcut-item text-center">
+                          <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                            <i class="ni ni-hat-3"></i>
+                          </span>
+                          <small>MESupReS</small>
+                        </a> -->
+                      
+                        <a href="{% url 'liste_conges' %}" class="col-4 shortcut-item text-center">
+                          <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                            <i class="ni ni-single-copy-04"></i>
+                          </span>
+                          <small>Conge</small>
+                        </a>
+                        <a href="{% url 'list_affectations' %}" class="col-4 shortcut-item text-center">
+                          <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                            <i class="ni ni-briefcase-24 "></i>
+                          </span>
+                          <small>Affectation</small>
+                        </a>
+                        
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="media align-items-center">
+                        
+                        <div class="media-body  ml-2  d-none d-lg-block">
+                          <span class="mb-0 text-sm ">
+                           
+                            {{ request.user.username|upper }}
+                          
+                          </span>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="dropdown-menu  dropdown-menu-right ">
+                     
+                      <div class="dropdown-divider"></div>
+                      <a href="{% url 'logout' %}" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">AFFECTATION</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item">Affectation</li>
+                <li class="breadcrumb-item active" aria-current="page">Ajout</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <h2 class="h2 text-white d-inline-block mb-0">AJOUTEZ UNE AFFECTATION</h2>
+      </div>
+    </div>
+  </div>
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-4 order-xl-2">
+            <!-- Votre contenu ici -->
+        </div>
+
+        <div class="col-xl-12 order-xl">
+            <div class="card">
+                <div class="card-header">
+                    <!-- En-tête de la carte ici -->
+                </div>
+                <div class="card-body">
+                  <form enctype="multipart/form-data" action="{% url 'create_affectation' %}" method="POST">
+
+                      {% csrf_token %}
+
+                      <h6 class="heading-small text-muted mb-4">Information personnelle</h6>
+                      <div class="pl-lg-4">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="employe">Employe</label>
+                                      <select id="employe" name="employe" class="form-control" required>
+                                          <option value="" disabled selected>Sélectionnez un employé</option>
+                                          {% for employe in employes %}
+                                              <option value="{{ employe.id }}">{{ employe.nom_em }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-lg-2">
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="date_aff">Date d'affectation</label>
+                                      <input type="date" id="date_aff" class="form-control" name="date_aff" required>
+                                  </div>
+                              </div>
+                              <div class="col-lg-5">
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="motif">Motif</label>
+                                      <input type="text" id="motif" class="form-control" name="motif" placeholder="Motif" required>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <hr class="my-4" />
+                      <!-- Address -->
+                      <h6 class="heading-small text-muted mb-4">Information professionnelle</h6>
+                      <div class="pl-lg-4">
+                          <div class="row">
+                              <div class="col-lg-4">
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="domaine">Domaine</label>
+                                      <select id="domaine" name="n_domaine" class="form-control" required>
+                                          <option value="" disabled selected>Sélectionnez un domaine</option>
+                                          {% for domaine in domaines %}
+                                              <option value="{{ domaine.id }}">{{ domaine.nom_dom }} ({{ domaine.description }})</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class "col-lg-4">
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="departement">Département</label>
+                                      <select id="departement" name="n_departement" class="form-control" required>
+                                          <option value="" disabled selected>Sélectionnez un département</option>
+                                          {% for departement in departements %}
+                                              <option value="{{ departement.id }}">{{ departement.nom_dep }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-lg-4">
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="fonction">Fonction</label>
+                                      <select id="fonction" name="n_fonction" class="form-control" required>
+                                          <option value="" disabled selected>Sélectionnez une fonction</option>
+                                          {% for fonction in fonctions %}
+                                              <option value="{{ fonction.id }}">{{ fonction.nom_fc }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Ajouter</button>
+                     
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <script src="/static/assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  
+ <!-- Assurez-vous que le script est dans un fichier de modèle Django (par exemple, file.html) -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#employe').change(function () {
+            var employeId = $(this).val();
+            if (employeId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/get_employee_info/' + employeId,  // Remplacez '/get_employee_info/' par votre URL ou chemin pour récupérer les informations de l'employé
+                    success: function (data) {
+                        $('#domaine').val(data.domaine);
+                        $('#departement').val(data.departement);
+                        $('#fonction').val(data.fonction);
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+ 
+ 
+  <script>
+   {% for msg in messages %}
+   swal("{{ msg }}");
+   {% endfor %}
+  </script>
+  
+
+
+{% include "includes/footer.html" %}
+{% endblock content %}

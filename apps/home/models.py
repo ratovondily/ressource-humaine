@@ -322,6 +322,44 @@ class Conge(models.Model):
 
         super().save(*args, **kwargs)
 
-      
+
+
+
+
+class Permission(models.Model):
+    date_debut = models.DateField()
+    date_fin = models.DateField()
+    employe = models.ForeignKey(Employe, on_delete=models.CASCADE, null=True, blank=True)
+    jours_utilises = models.PositiveIntegerField(null=True, default=0)
+    jours_restants = models.PositiveIntegerField(null=True, default=0)  # Ajustez la valeur par défaut
+
+    def save(self, *args, **kwargs):
+        if self.date_debut and self.type_permission:
+            
+            if isinstance(self.date_debut, str):
+                self.date_debut = datetime.strptime(self.date_debut, '%Y-%m-%d').date()
+
+            if isinstance(self.date_fin, str):
+                self.date_fin = datetime.strptime(self.date_fin, '%Y-%m-%d').date()
+
+            aujourdhui = date.today()
+
+            if self.date_debut > aujourdhui:  # Si la date de début est dans le futur
+                self.jours_utilises = 0
+                self.jours_restants = 0
+            elif self.date_fin and self.date_fin > self.date_debut:
+                # Calcul des jours utilisés jusqu'à la date actuelle
+                jours_utilises = (min(aujourdhui, self.date_fin) - self.date_debut).days + 1
+
+                # Calcul des jours restants
+                self.jours_utilises = jours_utilises
+                self.jours_restants = self.type_conge.nb_jour - jours_utilises
+            else:  # Si les dates ne sont pas valides
+                self.jours_utilises = 0
+                self.jours_restants = self.type_conge.nb_jour
+
+        super().save(*args, **kwargs)
+
+   
 
 

@@ -44,6 +44,8 @@ from .forms import TypeCongeForm
 from .models import Conge
 from .forms import CongeForm
 
+from .models import Permission
+from .forms import PermissionForm
 
 from .models import Fonction
 from .forms import FonctionForm
@@ -134,6 +136,7 @@ def index(request):
     nombre_employes = Employe.objects.count()
     nombre_affectations = Affectation.objects.count()
     nombre_conges = Conge.objects.count()
+    nombre_permissions = Permission.objects.count()
     
     
     
@@ -142,6 +145,7 @@ def index(request):
     context['nombre_enseignants'] = nombre_enseignants
     context['nombre_affectations'] = nombre_affectations
     context['nombre_conges'] = nombre_conges
+    context['nombre_permissions'] = nombre_permissions
    
 
     return render(request, 'home/index.html', context)
@@ -471,6 +475,99 @@ def supprimer_conge(request, id_conge):
         messages.success(request, 'Suppression avec succès.')
         return redirect('liste_conges')
     return render(request, 'conge/supprimer_conge.html', {'conge': conge})
+
+
+
+
+
+
+
+@permission_required('apps.view_conge', raise_exception=True)
+@login_required(login_url="/login/")
+def liste_permissions(request):
+    permissions = Permission.objects.all()
+    nombre_permissions = Permission.objects.count()
+    
+    return render(request, 'permission/liste_permission.html', {'permissions': permissions})
+
+
+
+# Vue pour ajouter un nouveau congé (Create)
+
+
+# importez les modèles et autres dépendances nécessaires
+@permission_required('apps.add_permission', raise_exception=True)
+@login_required(login_url="/login/")
+def ajouter_permission(request):
+    # Récupérez la liste des employés, enseignants et types de congés depuis votre modèle
+    employes = Employe.objects.all()
+
+    if request.method == 'POST':
+        # Traitez le formulaire d'ajout de congé
+        date_debut = request.POST.get('date_debut')
+        date_fin = request.POST.get('date_fin')
+        employe_id = request.POST.get('employe')
+        
+
+        # Validez les données et effectuez la logique de gestion des congés ici
+        # Vous devez ajouter des vérifications pour vous assurer que les données sont valides.
+        # Par exemple, assurez-vous que les dates sont au bon format et que les ID existent.
+
+        if date_debut and date_fin and (employe_id):
+            # Enregistrez le congé dans la base de données
+            Conge.objects.create(
+                date_debut=date_debut,
+                date_fin=date_fin,
+                employe_id=employe_id,
+            )
+            messages.success(request, 'Ajout avec succès.')
+            # Redirigez l'utilisateur vers la liste des congés ou une autre page appropriée
+            return redirect('liste_permissions')
+        else:
+            messages.error(request, 'Veuillez remplir tous les champs obligatoires.')
+
+    return render(request, 'permission/ajouter_permission.html', {
+        'employes': employes,
+    })
+      
+@permission_required('apps.change_permission', raise_exception=True)
+@login_required(login_url="/login/")
+def modifier_permission(request, id_permission):
+    permission = get_object_or_404(Permission, pk=id_permission)
+    employes = Employe.objects.all()
+
+    if request.method == 'POST':
+        form = PermissionForm(request.POST, instance=permission)
+
+        if form.is_valid():
+            # Assurez-vous d'associer les valeurs récupérées au formulaire ici
+            form.save()
+            messages.success(request, 'Modification effectuée avec succès.')
+            return redirect('liste_permissions')  # Rediriger vers la liste des congés après la modification
+
+    else:
+        form = PermissionForm(instance=permission)
+
+    return render(request, 'permission/modifier_permission.html', {
+        'form': form,
+        'permission': permission,
+        'employes': employes,
+    })
+
+# Vue pour supprimer un congé existant (Delete)
+@permission_required('apps.delete_permission', raise_exception=True)
+@login_required(login_url="/login/")
+def supprimer_permission(request, id_permission):
+    permission = get_object_or_404(Permission, pk=id_permission)
+    if request.method == 'POST':
+        permission.delete()
+        messages.success(request, 'Suppression avec succès.')
+        return redirect('liste_permissions')
+    return render(request, 'permission/supprimer_permission.html', {'permission': permission})
+
+
+
+
 
 # Vue pour afficher la liste des types de congés (Read)
 @permission_required('apps.view_typeconge', raise_exception=True)

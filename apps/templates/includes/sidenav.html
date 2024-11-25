@@ -3,7 +3,7 @@
     <!-- Brand -->
     <div class="sidenav-header  align-items-center">
       <a  href="/" >
-        <img src="/static/assets/img/brand/toliara.jpg"  width="80">
+        <img src="/static/assets/img/brand/atsimoandrefana-logo.jpg"  width="120">
       </a>
     </div>
     
@@ -43,6 +43,18 @@
           <a class="dropdown-item" href="{% url 'liste_enseignants' %}">Liste des Enseignants</a>
        </div>
        </li> -->
+
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownEnseignant" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="ni ni-hat-3 text-blue"></i>
+        <span class="nav-link-text">Permission</span>
+        </a>
+     <div class="dropdown-menu" aria-labelledby="navbarDropdownEnseignant">
+        <a class="dropdown-item" href="{% url 'ajouter_permission' %}">Ajouter Permission</a>
+        <a class="dropdown-item" href="{% url 'liste_permissions' %}">Liste des Permissions</a>
+     </div>
+     </li>
        <li class="nav-item dropdown">
         
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAffectation" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +84,7 @@
     
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAutre" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="ni ni-book-bookmark text-blue"></i>
-    <span class="nav-link-text">Option</span>
+    <span class="nav-link-text">Système de REGION S-O</span>
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownConge">
     <a class="dropdown-item" href="{% url 'liste_contrats' %}">contrat</a>

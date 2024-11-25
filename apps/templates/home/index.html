@@ -63,30 +63,25 @@
                   <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
                     <div class="row shortcuts px-4">
                       <a href="{% url 'liste_employes' %}" class="col-4 shortcut-item text-center">
-                        <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                        <span class="shortcut-media avatar rounded-circle bg-english-green">
                           <i class="fas fa-users"></i>
                         </span>
-                        <small>P.A.T</small>
+                        <small>Personnel</small>
                       </a>
-                      <!-- <a href="{% url 'liste_enseignants' %}" class="col-4 shortcut-item text-center">
-                        <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
-                          <i class="ni ni-hat-3"></i>
-                        </span>
-                        <small>MESupReS</small>
-                      </a> -->
-                    
                       <a href="{% url 'liste_conges' %}" class="col-4 shortcut-item text-center">
-                        <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                        <span class="shortcut-media avatar rounded-circle bg-english-green">
                           <i class="ni ni-single-copy-04"></i>
                         </span>
                         <small>Conge</small>
                       </a>
+                      
                       <a href="{% url 'list_affectations' %}" class="col-4 shortcut-item text-center">
-                        <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
-                          <i class="ni ni-briefcase-24 "></i>
+                        <span class="shortcut-media avatar rounded-circle bg-english-green">
+                          <i class="ni ni-briefcase-24"></i>
                         </span>
-                        <small>Affectation</small>
-                      </a>
+                        <small>Affectations</small>
+                      </a>                      
+                      
                       
                     </div>
                   </div>
@@ -242,7 +237,7 @@
 
       <div class="col-xl-3 col-md-6">
         <div class="card card-stats">
-          <a href="{% url 'list_affectations' %}">
+          <a href="{% url 'liste_permissions' %}">
             <div class="card-body">
               <div class="row">
                 <div class="col">
@@ -318,7 +313,7 @@
                       <div class="row align-items-center">
                        
                         <div class="col">
-                          <h6 class="text-uppercase text-muted ls-1 mb-1">répartition des effectifs par Departement des Employes</h6>
+                          <h6 class="text-uppercase text-muted ls-1 mb-1">Répartition des effectifs par services des Employes</h6>
                           <h5 class="h3 mb-0"></h5>
                       </div>
                       </div>

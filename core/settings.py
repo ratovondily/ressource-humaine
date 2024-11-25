@@ -74,15 +74,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(BASE_DIR / 'db.sqlite3'),  # Utilisation de str() pour convertir le chemin en texte
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),  # Utilisation de str() pour convertir le chemin en texte
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),  # Nom de la base de données
+        'USER': config('DB_USER'),  # Nom d'utilisateur
+        'PASSWORD': config('DB_PASSWORD'),  # Mot de passe
+        'HOST': config('DB_HOST', default='127.0.0.1'),  # Adresse du serveur
+        'PORT': config('DB_PORT', default='5432'),  # Port par défaut pour PostgreSQL : 5432
     }
 }
-
-
-
 
 
 

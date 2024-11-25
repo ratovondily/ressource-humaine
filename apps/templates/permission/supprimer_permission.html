@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Supprimer un Congé {% endblock title %}
+
+{% block content %}
+<div class="header bg-primary pb-6">
+    <!-- Votre en-tête de page ici -->
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Supprimer un Permission</h3>
+                </div>
+                <div class="card-body">
+                    <p>Êtes-vous sûr de vouloir supprimer ce congé ?</p>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

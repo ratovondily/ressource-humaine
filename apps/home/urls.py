@@ -31,6 +31,12 @@ urlpatterns = [
     path('conges/ajouter/', views.ajouter_conge, name='ajouter_conge'),
     path('conges/modifier/<int:id_conge>/', views.modifier_conge, name='modifier_conge'),
     path('conges/supprimer/<int:id_conge>/', views.supprimer_conge, name='supprimer_conge'),
+
+    path('permissions/', views.liste_permissions, name='liste_permissions'),
+    path('permissions/ajouter/', views.ajouter_permission, name='ajouter_permission'),
+    path('permissions/modifier/<int:id_permission>/', views.modifier_permission, name='modifier_permission'),
+    path('permissions/supprimer/<int:id_permission>/', views.supprimer_permission, name='supprimer_permission'),
+
     path('typeconges/', views.liste_typeconges, name='liste_typeconges'),
     path('typeconges/ajouter/', views.ajouter_typeconge, name='ajouter_typeconge'),
     path('typeconges/modifier/<int:id_typeconge>/', views.modifier_typeconge, name='modifier_typeconge'),

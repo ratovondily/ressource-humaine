@@ -4,6 +4,7 @@ from .models import Categorie
 from .models import Diplome
 from .models import Contrat
 from .models import Conge
+from .models import Permission
 from .models import TypeConge
 from .models import Grade
 from .models import Employe
@@ -92,6 +93,20 @@ class CongeForm(forms.ModelForm):
         widget=forms.DateInput(attrs={'type': 'date'}),
         validators=[date_not_in_past]  # Ajoutez votre validation personnalisée ici
     )
+
+
+
+class PermissionForm(forms.ModelForm):
+    class Meta:
+        model = Permission
+        fields = ['date_debut', 'date_fin', 'employe']
+
+    date_debut = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        validators=[date_not_in_past]  # Ajoutez votre validation personnalisée ici
+    )
+
+
 class TypeCongeForm(forms.ModelForm):
     class Meta:
         model = TypeConge

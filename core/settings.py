@@ -18,10 +18,14 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-# load production server from .env
-ALLOWED_HOSTS = ['*']
+# # load production server from .env
+# ALLOWED_HOSTS = ['*']
+
+DEBUG = False
+ALLOWED_HOSTS = ['.onrender.com']
+
 
 # Application definition
 
@@ -82,16 +86,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # }
 
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),  # Nom de la base de données
-        'USER': config('DB_USER'),  # Nom d'utilisateur
-        'PASSWORD': config('DB_PASSWORD'),  # Mot de passe
-        'HOST': config('DB_HOST', default='127.0.0.1'),  # Adresse du serveur
-        'PORT': config('DB_PORT', default='5432'),  # Port par défaut pour PostgreSQL : 5432
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('postgresql://rh_qs4y_user:Vlh9FKGJSVhtnatrYWO39MWeU7gjCs7R@dpg-ct269k3v2p9s738tvat0-a/rh_qs4y')  # DATABASE_URL sera fourni par Render
+    )
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# from decouple import config
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST', default='127.0.0.1'),
+#         'PORT': config('DB_PORT', cast=int), 
+#     }
+# }
+
+
 
 
 

@@ -78,35 +78,55 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': str(BASE_DIR / 'db.sqlite3'),  # Utilisation de str() pour convertir le chemin en texte
-#     }
-# }
-
-
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('postgresql://rh_qs4y_user:Vlh9FKGJSVhtnatrYWO39MWeU7gjCs7R@dpg-ct269k3v2p9s738tvat0-a/rh_qs4y')  # DATABASE_URL sera fourni par Render
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),  # Utilisation de str() pour convertir le chemin en texte
+    }
 }
+
+
+
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# from decouple import config
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST', default='127.0.0.1'),
-#         'PORT': config('DB_PORT', cast=int), 
+
+# import os
+# from urllib.parse import urlparse
+
+# # Vérifier si la variable d'environnement DATABASE_URL est définie
+# DATABASE_URL = os.getenv('DATABASE_URL')
+
+# if DATABASE_URL:
+#     url = urlparse(DATABASE_URL)
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': url.path[1:],  # Supprimer le '/' au début du nom de la base de données
+#             'USER': url.username,
+#             'PASSWORD': url.password,
+#             'HOST': url.hostname,
+#             'PORT': url.port,
+#         }
 #     }
-# }
+# else:
+#     # Paramètres par défaut si DATABASE_URL n'est pas définie
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'rh_zlca',
+#             'USER': 'prosper',
+#             'PASSWORD': 'yD7vKtsm8XAFRMYp9OooHQmHvdGO1iH8',
+#             'HOST': 'dpg-ct28eq9opnds73fpqdmg-a.ohio-postgres.render.com',
+#             'PORT': '5432',
+#         }
+#     }
+
+
+
+
 
 
 
